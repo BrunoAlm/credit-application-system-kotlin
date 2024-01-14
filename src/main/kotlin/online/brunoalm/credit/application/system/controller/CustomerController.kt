@@ -4,6 +4,7 @@ import jakarta.validation.Valid
 import online.brunoalm.credit.application.system.dto.request.CustomerDto
 import online.brunoalm.credit.application.system.dto.response.CustomerView
 import online.brunoalm.credit.application.system.dto.request.CustomerUpdateDto
+import online.brunoalm.credit.application.system.entity.Customer
 import online.brunoalm.credit.application.system.service.impl.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,9 +16,9 @@ class CustomerController(
     private val customerService: CustomerService
 ) {
     @PostMapping
-    fun saveCustomer(@RequestBody @Valid customerDto: CustomerDto): ResponseEntity<String> {
-        val savedCustomer = this.customerService.save(customerDto.toEntity())
-        return ResponseEntity.status(HttpStatus.CREATED).body("Customer ${savedCustomer.email} saved!")
+    fun saveCustomer(@RequestBody @Valid customerDto: CustomerDto): ResponseEntity<CustomerView> {
+        val savedCustomer: Customer = this.customerService.save(customerDto.toEntity())
+        return ResponseEntity.status(HttpStatus.CREATED).body(CustomerView(savedCustomer))
     }
 
     @GetMapping("/{id}")

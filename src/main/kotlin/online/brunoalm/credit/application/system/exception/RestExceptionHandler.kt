@@ -22,7 +22,7 @@ class RestExceptionHandler {
         }
         return ResponseEntity(
             ExceptionDetails(
-                title = "Bad Request! Consult documentation",
+                title = "Bad Request! Consult the documentation",
                 timestamp = LocalDateTime.now(),
                 status = HttpStatus.BAD_REQUEST.value(),
                 exception = ex.javaClass.toString(),
@@ -35,7 +35,7 @@ class RestExceptionHandler {
     fun handlerValidException(ex: DataAccessException): ResponseEntity<ExceptionDetails> {
         return ResponseEntity(
             ExceptionDetails(
-                title = "Bad Request! Consult documentation",
+                title = "Conflict! Consult the documentation",
                 timestamp = LocalDateTime.now(),
                 status = HttpStatus.CONFLICT.value(),
                 exception = ex.javaClass.toString(),
@@ -48,7 +48,7 @@ class RestExceptionHandler {
     fun handlerValidException(ex: BusinessException): ResponseEntity<ExceptionDetails> {
         return ResponseEntity(
             ExceptionDetails(
-                title = "Bad Request! Consult documentation",
+                title = "Bad Request! Consult the documentation",
                 timestamp = LocalDateTime.now(),
                 status = HttpStatus.BAD_REQUEST.value(),
                 exception = ex.javaClass.toString(),
@@ -58,10 +58,10 @@ class RestExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException::class)
-    fun handlerAccessException(ex: IllegalArgumentException): ResponseEntity<ExceptionDetails> {
+    fun handlerValidException(ex: IllegalArgumentException): ResponseEntity<ExceptionDetails> {
         return ResponseEntity(
             ExceptionDetails(
-                title = "Bad Request! Consult documentation",
+                title = "Bad Request! Consult the documentation",
                 timestamp = LocalDateTime.now(),
                 status = HttpStatus.BAD_REQUEST.value(),
                 exception = ex.javaClass.toString(),
