@@ -1,9 +1,9 @@
-package online.brunoalm.credit.application.system.dto
+package online.brunoalm.credit.application.system.dto.request
 
 import online.brunoalm.credit.application.system.entity.Customer
 import java.math.BigDecimal
 
-data class CustumerUpdateDto(
+data class CustomerUpdateDto(
     val firstName: String,
     val lastName: String,
     val income: BigDecimal,

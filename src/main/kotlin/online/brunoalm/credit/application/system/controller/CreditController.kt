@@ -1,8 +1,9 @@
 package online.brunoalm.credit.application.system.controller
 
-import online.brunoalm.credit.application.system.dto.CreditDto
-import online.brunoalm.credit.application.system.dto.CreditView
-import online.brunoalm.credit.application.system.dto.CreditViewList
+import jakarta.validation.Valid
+import online.brunoalm.credit.application.system.dto.request.CreditDto
+import online.brunoalm.credit.application.system.dto.response.CreditView
+import online.brunoalm.credit.application.system.dto.response.CreditViewList
 import online.brunoalm.credit.application.system.entity.Credit
 import online.brunoalm.credit.application.system.service.impl.CreditService
 import org.springframework.http.HttpStatus
@@ -17,7 +18,7 @@ class CreditController(
     private val creditService: CreditService
 ) {
     @PostMapping
-    fun saveCredit(@RequestBody creditDto: CreditDto): ResponseEntity<String> {
+    fun saveCredit(@RequestBody @Valid creditDto: CreditDto): ResponseEntity<String> {
         val credit: Credit = this.creditService.save(creditDto.toEntity())
         return ResponseEntity.status(HttpStatus.CREATED)
             .body("Credit ${credit.creditCode} - Customer ${credit.customer?.email} saved!")

@@ -1,4 +1,4 @@
-package online.brunoalm.credit.application.system.dto
+package online.brunoalm.credit.application.system.dto.response
 
 import online.brunoalm.credit.application.system.entity.Credit
 import online.brunoalm.credit.application.system.enummeration.Status

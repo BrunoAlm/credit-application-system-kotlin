@@ -1,8 +1,9 @@
 package online.brunoalm.credit.application.system.controller
 
-import online.brunoalm.credit.application.system.dto.CustomerDto
-import online.brunoalm.credit.application.system.dto.CustomerView
-import online.brunoalm.credit.application.system.dto.CustumerUpdateDto
+import jakarta.validation.Valid
+import online.brunoalm.credit.application.system.dto.request.CustomerDto
+import online.brunoalm.credit.application.system.dto.response.CustomerView
+import online.brunoalm.credit.application.system.dto.request.CustomerUpdateDto
 import online.brunoalm.credit.application.system.service.impl.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -14,7 +15,7 @@ class CustomerController(
     private val customerService: CustomerService
 ) {
     @PostMapping
-    fun saveCustomer(@RequestBody customerDto: CustomerDto): ResponseEntity<String> {
+    fun saveCustomer(@RequestBody @Valid customerDto: CustomerDto): ResponseEntity<String> {
         val savedCustomer = this.customerService.save(customerDto.toEntity())
         return ResponseEntity.status(HttpStatus.CREATED).body("Customer ${savedCustomer.email} saved!")
     }
@@ -26,12 +27,13 @@ class CustomerController(
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteCustomer(@PathVariable id: Long) = this.customerService.delete(id)
 
     @PatchMapping
     fun updateCustomer(
         @RequestParam(value = "customerId") id: Long,
-        @RequestBody customerUpdateDto: CustumerUpdateDto
+        @RequestBody @Valid customerUpdateDto: CustomerUpdateDto
     ): ResponseEntity<CustomerView> {
         val customer = this.customerService.findById(id)
         val customerToUpdate = customerUpdateDto.toEntity(customer)
